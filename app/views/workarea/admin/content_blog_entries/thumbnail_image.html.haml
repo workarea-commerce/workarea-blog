@@ -1,0 +1,55 @@
+- @page_title = t('workarea.admin.content_blog_entries.thumbnail_image.page_title', name: @blog_entry.name)
+
+.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--25
+        = render 'workarea/admin/releases/select'
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to "↑ #{t('workarea.admin.content_blog_entries.thumbnail_image.index_link', name: @blog_entry.blog.name)}", content_blog_blog_entries_path(content_blog_id: @blog_entry.blog.slug)
+          %h1= link_to @blog_entry.name, url_for(@blog_entry)
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@blog_entry)
+
+  .view__container
+    = render_cards_for(@blog_entry, :thumbnail_image)
+
+  .view__container.view__container--narrow
+
+    - if @blog_entry.errors.present?
+      = render 'workarea/admin/shared/errors', errors: @blog_entry.errors
+
+    = form_tag update_thumbnail_image_content_blog_entry_path(@blog_entry), method: 'put', id: 'blog_entry_form', multipart: true do
+      .section
+        %h2= t('workarea.admin.content_blog_entries.thumbnail_image.thumbnail_image')
+        - if @blog_entry.has_thumbnail_image?
+          %table.data-pairs
+            %tbody
+              %tr
+                %th
+                  %span.data-pairs__name= t('workarea.admin.content_blog_entries.thumbnail_image.current_image')
+                %td= link_to image_tag(@blog_entry.thumbnail_image_url, alt: t('workarea.admin.content_blog_entries.thumbnail_image.view_thumbnail_image')), @blog_entry.thumbnail_image_url, target: '_blank'
+
+        .property
+          = label_tag 'blog_entry[thumbnail_image]', class: 'property__name' do
+            %span.property__text= t('workarea.admin.content_blog_entries.thumbnail_image.choose_image_file')
+
+          .asset-picker-field{ data: { asset_picker_field: '' } }
+            .asset-picker-field__cell
+              = hidden_field_tag "blog_entry[thumbnail_image]", @blog_entry[:thumbnail_image], class: 'text-box text-box--i18n'
+
+              %span{ data: { asset_name: true } }
+                - asset = Workarea::Content::Asset.find_or_initialize_by(id: @blog_entry[:thumbnail_image])
+                = asset.name.presence || t('workarea.admin.content_blocks.asset.name_missing')
+
+            .asset-picker-field__cell= link_to t('workarea.admin.content_blocks.asset.select_an_asset'), insert_content_assets_path(file_type: 'image'), class: 'text-button', data: { asset_picker_field_open: '', turbolinks: false }
+            - if asset.name.present?
+              .asset-picker-field__cell= button_tag t('workarea.admin.content_blocks.asset.clear_asset'), type: 'button', value: 'clear_asset', id: 'clear_asset', class: 'text-button text-button--destroy', data: { asset_picker_field_clear: '' }
+
+          %span.property__note= t('workarea.admin.content_blog_entries.thumbnail_image.asset_input_note')
+
+      .workflow-bar
+        .grid.grid--auto.grid--right.grid--middle
+          .grid__cell= render 'workarea/admin/shared/publishing_select'
+          .grid__cell= button_tag t('workarea.admin.form.save_changes'), value: 'save_blog_entry', class: 'workflow-bar__button workflow-bar__button--update'

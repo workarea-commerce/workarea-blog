@@ -1,0 +1,16 @@
+.DS_Store
+.bundle/
+.byebug_history
+Gemfile.lock
+.sass-cache/
+log/*.log
+pkg/
+test/dummy/db/*.sqlite3
+test/dummy/db/*.sqlite3-journal
+test/dummy/log/*.log
+test/dummy/tmp/
+test/dummy/public/
+node_modules
+test/reports
+package.json
+yarn.lock

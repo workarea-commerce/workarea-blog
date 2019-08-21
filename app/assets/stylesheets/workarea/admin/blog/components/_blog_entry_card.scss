@@ -1,0 +1,14 @@
+/*------------------------------------*\
+    #BLOG-ENTRY-CARD
+\*------------------------------------*/
+
+$blog-entry-card-border-color:  $gray !default;
+
+
+.blog-entry-card {
+    @extend %list-reset;
+}
+
+    .blog-entry-card__item {
+        border-bottom: 1px solid $blog-entry-card-border-color;
+    }

@@ -1,0 +1,51 @@
+- @page_title = t('workarea.admin.content_blogs.edit.page_title', name: @blog.name)
+
+.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--25
+        = render 'workarea/admin/releases/select'
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to "↑ #{t('workarea.admin.content_blogs.edit.index_link')}", content_blogs_path, class: 'view__dashboard-button'
+          %h1= link_to t('workarea.admin.content_blogs.edit.page_title', name: @blog.name), url_for(@blog)
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@blog)
+
+  .view__container
+    = render_cards_for(@blog, :attributes)
+
+  .view__container.view__container--narrow
+
+    - if @blog.errors.present?
+      = render 'workarea/admin/shared/errors', errors: @blog.errors
+
+    = form_tag content_blog_path(@blog), method: 'put', id: 'blog_form' do
+      .section
+        .property
+          = label_tag 'blog_name', nil, class: 'property__name' do
+            %span.property__text= t('workarea.admin.content_blogs.edit.name')
+            %span.property__requirement *
+          = text_field_tag 'blog[name]', @blog.name, class: 'text-box text-box--i18n', required: true
+        .property
+          = label_tag 'blog_slug', nil, class: 'property__name' do
+            %span.property__text= t('workarea.admin.content_blogs.edit.page_url')
+
+          %span= storefront.blog_url('')
+          = text_field_tag 'blog[slug]', @blog.slug, class: 'text-box text-box--medium', placeholder: @blog.slug || 'your-slug-here'
+          %span.property__note= t('workarea.admin.content_blogs.edit.page_url_note')
+
+        .grid
+          .grid__cell.grid__cell--50.grid__cell--25-at-medium
+            .property
+              = label_tag 'blog_updated_at', t('workarea.admin.fields.updated_at'), class: 'property__name'
+              = local_time(@blog.updated_at)
+          .grid__cell.grid__cell--50.grid__cell--25-at-medium
+            .property
+              = label_tag 'blog_created_at', t('workarea.admin.fields.created_at'), class: 'property__name'
+              = local_time(@blog.created_at)
+
+      .workflow-bar
+        .grid.grid--auto.grid--right.grid--middle
+          .grid__cell= render 'workarea/admin/shared/publishing_select'
+          .grid__cell= button_tag 'Save changes', value: 'save_blog', class: 'workflow-bar__button workflow-bar__button--update'

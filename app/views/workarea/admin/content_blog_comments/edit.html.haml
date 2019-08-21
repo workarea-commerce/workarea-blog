@@ -1,0 +1,60 @@
+- @page_title = t('workarea.admin.content_blogs_comments.edit.page_title', name: @blog_comment.entry.name)
+
+.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--100
+        .view__heading
+          = link_to t('workarea.admin.content_blogs_comments.edit.comments_for_name', name: @blog_comment.entry.name), content_blog_user_comments_path(blog_entry_id: @blog_comment.entry.slug)
+          %h1= t('workarea.admin.content_blogs_comments.edit.edit_comment_by_user', user_name: @blog_comment.author.name)
+
+  .view__container
+    = render_cards_for(@blog_comment, :attributes)
+
+    - if @blog_comment.errors.present?
+      = render 'workarea/admin/shared/errors', errors: @blog_comment.errors
+
+  .view__container.view__container--narrow
+    = form_tag content_blog_user_comment_path(@blog_comment), method: 'put', id: 'blog_comment_form' do
+      = hidden_field_tag 'blog_entry_id', params[:blog_entry_id] if params[:blog_entry_id].present?
+
+      .grid.grid--middle
+        .grid__cell.grid__cell--75-at-medium
+          .comments
+            .comments__comment-header
+              .comments__comment-avatar
+                = link_to user_path(@blog_comment.author) do
+                  = avatar_for @blog_comment.author, additional_css_class: 'avatar'
+              - if @user.present?
+                %h3.comments__comment-author= link_to @blog_comment.author.name, user_path(@blog_comment.author)
+              - else
+                %h3.comments__comment-author= t('workarea.admin.content_blogs_comments.edit.unregistered_user')
+
+        .grid__cell.grid__cell--25-at-medium
+          .grid.grid--auto.grid--right.grid--middle
+            .grid__cell
+              .compound-property
+                %span.compound-property__name= t('workarea.admin.content_blogs_comments.edit.approved')
+                = toggle_button_for 'blog_comment[approved]', @blog_comment.approved
+
+      .property.property--stacked
+        = label_tag 'blog_comment_body', t('workarea.admin.content_blogs_comments.edit.comment'), class: 'property__name'
+        = text_area_tag 'blog_comment[body]', @blog_comment.body, class: 'text-box text-box--multi-line'
+
+      .grid.grid--huge
+        .grid__cell.grid__cell--50.grid__cell--25-at-medium
+          .property
+            = label_tag 'comment_updated_at', t('workarea.admin.fields.updated_at'), class: 'property__name'
+            = local_time(@blog_comment.updated_at)
+        .grid__cell.grid__cell--50.grid__cell--25-at-medium
+          .property
+            = label_tag 'comment_created_at', t('workarea.admin.fields.created_at'), class: 'property__name'
+            = local_time(@blog_comment.created_at)
+
+      .workflow-bar
+        .grid.grid--middle
+          .grid__cell.grid__cell--50-at-medium
+            = link_to t('workarea.admin.form.cancel'), :back, class: 'workflow-bar__button workflow-bar__button--delete'
+          .grid__cell.grid__cell--50-at-medium
+            .grid.grid--auto.grid--right.grid--middle
+              .grid__cell= button_tag t('workarea.admin.form.save_changes'), value: 'save_blog_comment', class: 'workflow-bar__button workflow-bar__button--update'

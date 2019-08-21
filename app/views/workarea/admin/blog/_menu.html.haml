@@ -1,0 +1,13 @@
+.primary-nav__section
+  .primary-nav__heading= link_to t('workarea.admin.shared.primary_nav.blogs'), content_blogs_path, tabindex: 0, class: 'primary-nav__heading-link'
+  %ul.primary-nav__children
+    - content = current_system_page_content_for(:blog_landing_page)
+    - if content.present?
+      %li{ class: "primary-nav__item" }= link_to content.name, current_system_page_content_for(:blog_landing_page), class: navigation_link_classes(url_for(current_system_page_content_for(:blog_landing_page)))
+
+    - pending_comment_count = Workarea::Content::BlogComment.pending.count
+    %li{ class: "primary-nav__item" }= link_to t('workarea.admin.shared.primary_nav.manage_comments', count: pending_comment_count), content_blog_user_comments_path, class: navigation_link_classes(content_blog_user_comments_path)
+
+    - Workarea::Content::Blog.each do |blog|
+      %li{ class: "primary-nav__item" }
+        = link_to blog.name, content_blog_path(blog), class: navigation_link_classes(content_blog_path(blog))

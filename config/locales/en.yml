@@ -1,0 +1,244 @@
+en:
+  workarea:
+    admin:
+      activities:
+        blog_comment_create: Created a blog comment
+        blog_comment_create_html: Create a blog comment on %{name}
+        blog_comment_destroy: Removed a blog comment
+        blog_comment_update_html: Updated %{fields} on a %{name}
+        blog_comment: blog comment
+        blog_create_html: Created %{name} blog
+        blog_destroy_html: Removed the %{name} blog
+        blog_update_html: Updated %{fields} on the %{name} blog
+        blog_entry_create_html: Created %{name} blog entry
+        blog_entry_destroy_html: Removed the %{name} blog entry
+        blog_entry_update_html: Updated %{fields} on the %{name} blog entry
+      landing_page: Blog Landing Page
+      content_blocks:
+        blog_id:
+          search_field_placeholder: Search blogs by name
+        blog_entry_id:
+          search_field_placeholder: Search entries by name
+      content_blogs_comments:
+        flash_messages:
+          destroyed: This blog entry comment has been removed
+        summary:
+          pending: (Pending)
+        edit:
+          page_title: Edit comment for %{name}
+          comments_for_name: Comments for %{name}
+          edit_comment_by_user: Edit Comment by %{user_name}
+          unregistered_user: Unregistered User
+          approved: Approved
+          comment: Comment
+        index:
+          dashboard_link: ↑ All Entries for %{blog_name}
+          all_blogs: All Blogs
+          comments_for_entry: Blog entry comments for %{entry_name}
+          blog_entry_comments: Blog Entry Comments
+          no_comments_found: No comments found.
+          page_title: Comments for blog
+          comments:
+            one: "%{count} Comment"
+            other: "%{count} Comments"
+          new_comment: New Comment
+          comment_body: Comment Body
+          create_comment: Create Comment
+      content_blog_entries:
+        fields:
+          author: Author
+          featured: Featured
+          comments: Comments
+        aux_navigation:
+         view_blog: View Blog
+        cards:
+          attributes:
+            button: Edit Attributes
+            author: 'Author:'
+            summary: 'Summary:'
+            tags: 'Tags:'
+            comments: 'Comments:'
+            featured: 'Featured:'
+            written_at: 'Written at:'
+            modified: 'Modified:'
+            created: 'Created:'
+            title: Attributes
+            none: (none)
+          comments:
+            button_add: Create a Comment
+            button_edit: View Comment
+            title: Comments
+            no_comments: This entry has no comments
+          featured_products:
+            button: Manage Products
+            description: Featured products are shown on blog entry and allow you to merchandise your blog.
+            empty: No featured products.
+            empty_button: Add Products
+            title: Featured Products
+          thumbnail_image:
+            button_add: Add Thumbnail
+            button_edit: Edit Thumbnail
+            description: Thumbnail images appear next to your blog entry when displayed on the index page for your blog.
+            no_thumbnail_image: No thumbnail image
+            title: Thumbnail Image
+        summary:
+          blog_entry: Blog Entry
+          written_at: 'Written at:'
+          updated_at: 'Updated at:'
+          comments:
+            one: "%{count} Comment"
+            other: "%{count} Comments"
+        edit:
+          author: Author
+          date_written: Date Written
+          featured: Featured
+          not_featured: Not featured
+          inactive: Inactive
+          index_link: Entries for %{name}
+          name: Name
+          page_title: Edit %{name}
+          slug_label: Entry URL
+          summary: Summary
+          tags: Tags
+          tags_note: 'Comma separated: just, like, this'
+        featured_products:
+          featured_products: Featured Products
+          page_title: Featured Products for %{name}
+          product_ids_note: Select products to feature on your blog entry.
+          index_link: All Entries for %{name}
+        flash_messages:
+          deleted: This blog entry has been removed
+          updated: Blog entry has been updated
+        index:
+          blog: Blog
+          entries_for: Entries for %{name}
+          new_blog_entry: New blog entry
+        show:
+          index_link: All Entries for %{name}
+        thumbnail_image:
+          choose_image_file: Choose Image File
+          current_image: Current Image
+          asset_input_note: After selecting an asset refresh to see an updated preview
+          index_link: All Entries for %{name}
+          page_title: Thumbnail for %{name}
+          thumbnail_image: Thumbnail Image
+          view_thumbnail_image: View thumbnail image
+      content_blogs:
+        fields:
+          entries: Entries
+          navigation: Navigation
+        actions:
+          delete_confirmation: Are you sure you want to delete this blog?
+        cards:
+          attributes:
+            button: Edit Attributes
+            created: 'Created:'
+            entries: 'Entries:'
+            modified: 'Modified:'
+            navigation: 'Navigation:'
+            no_navigation: 'N/A'
+            tags: 'Tags:'
+            title: Attributes
+          blog_entries:
+            by: "By: %{author}"
+            button: View Entries
+            button_create: Create Entry
+            empty: No blog entries.
+            title: Blog Entries
+        edit:
+          index_link: All Blogs
+          name: Name
+          page_title: Edit %{name}
+          page_url: Page Url
+          page_url_note: The URL is auto-generated using the page's name
+        index:
+          button: Add new Blog
+          dashboard_link: Main Dashboard
+          title: Blogs
+        new:
+          name: Name
+          page_title: New Blog
+          page_url: Page Url
+          page_url_note: The URL is auto-generated using the page's name
+          title: New Blog
+          blogs: Blogs
+          create_blog: Create Blog
+        summary:
+          type: Blog
+          entries:
+            one: 1 Entry
+            other: "%{count} Entries"
+      create_content_blog_entries:
+        content:
+          button: Continue and add products
+          page_title: Blog entry content for %{name}
+          title: Blog entry content for %{name}
+        featured_products:
+          button: Save and Continue
+          instruction: Click on products to add them to the blog entry.
+          no_matching_products: No matching products found
+          page_title: Featured products for %{name}
+          start_over: Start over
+          title: Featured products for %{name}
+        flash_messages:
+          blog_entry_created: Your blog entry has been created
+        publish:
+          button: Save and Finish
+          page_title: Publish %{name}
+          title: Publish %{name}
+        setup:
+          author_label: Author
+          button: Save and add thumbnail
+          blog_label: Blog
+          name_label: Entry Name
+          page_title: Create a blog entry
+          slug_label: Slug
+          slug_placeholder: your-slug-here
+          tags_label: Tags
+          tags_note: 'Comma separated: just, like this'
+          title: Create a blog entry
+        summary:
+          button: Save and add thumbnail image
+          page_title: Blog Entry Summary for %{name}
+          summary_label: Blog Entry Summary
+          title: Blog Entry Summary for %{name}
+        thumbnail_image:
+          button: Save and add content
+          thumbnail_label: Choose image file
+          page_title: Thumbnail image for %{name}
+          title: Thumbnail image for %{name}
+        workflow:
+          cancel_message: Are you sure? All work on this blog entry will be lost.
+          skip_this: Skip this
+          steps:
+            setup: Setup
+            summary: Summary
+            thumbnail_image: Thumbnail Image
+            content: Content
+            featured_products: Featured Products
+            publish: Publish
+
+      navigation_taxons:
+        types:
+          blog: Blog
+          blog_entry: Blog Entry
+      shared:
+        primary_nav:
+          blogs: Blogs
+          manage_comments: Manage Comments (%{count})
+    storefront:
+      blogs:
+        comment: Comment
+        comments:
+          one: 1 Comment
+          other: '%{count} Comments'
+        message: Check out %{name} from %{site}
+        tags: Tags
+        tag_link: "%{name} (%{count})"
+        byline: "By: %{author}"
+        related_products: Related Products
+        write_comment: Write Comment
+        must_be_logged_in: You must be logged in to write a comment.
+        submit_comment: Submit Comment
+        read_more: Read More »
+        name: Blog

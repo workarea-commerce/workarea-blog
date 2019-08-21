@@ -1,0 +1,49 @@
+- @page_title = t('workarea.admin.content_blogs_comments.index.page_title')
+
+.view.comments
+  .view__header
+    .grid.grid--right.grid--middle
+      .grid__cell.grid__cell--50
+        .view__heading
+          - if @blog_comments.blog_entry.present?
+            = link_to t('workarea.admin.content_blogs_comments.index.dashboard_link', blog_name: @blog_comments.blog_entry.blog.name), content_blog_blog_entries_path(@blog_comments.blog_entry.blog.slug)
+          - else
+            = link_to t('workarea.admin.content_blogs_comments.index.all_blogs'), content_blogs_path
+          - if @blog_comments.blog_entry.present?
+            %h1= link_to t('workarea.admin.content_blogs_comments.index.comments_for_entry', entry_name: @blog_comments.blog_entry.name), url_for(@blog_comments.blog_entry)
+          - else
+            %h1= t('workarea.admin.content_blogs_comments.index.blog_entry_comments')
+      .grid__cell.grid__cell--25
+        - if @blog_comments.blog_entry.present?
+          = render_aux_navigation_for(@blog_comments.blog_entry)
+
+  .view__container.view__container--narrow
+    - if @blog_comments.comments.any?
+      - form_path = @blog_comments.blog_entry.present? ? content_blog_user_comments_path(content_blog_entry_id: @blog_comments.blog_entry) : content_blog_user_comments_path
+      = form_tag form_path, method: 'get', id: 'blog_comments_sort_form' do
+        = hidden_field_tag 'content_blog_entry_id', params[:content_blog_entry_id] if params[:content_blog_entry_id].present?
+
+        .browsing-controls.browsing-controls--with-divider.browsing-controls--center
+          .property.property--inline
+            = label_tag 'sort', t('workarea.admin.search.sort_by'), class: 'property__name'
+            = select_tag 'sort', options_for_select(sort_options(@blog_comments), params[:sort]), data: { form_submitting_control: '' }
+
+          %p.browsing-controls__count{ data: { browsing_controls_count: @blog_comments.comments.total_count } }
+            = t('workarea.admin.content_blogs_comments.index.comments', count: @blog_comments.comments.total_count)
+
+      .comments__comment-group
+        - @blog_comments.comments.each do |blog_comment|
+          = render_summary_for(blog_comment)
+
+      - if @blog_comments.comments.total_pages > 1
+        = render 'workarea/admin/shared/pagination', collection: @blog_comments.comments
+
+      .workflow-bar
+        .grid
+          .grid__cell.grid__cell--50
+            .grid.grid--auto
+              .grid__cell= link_to t('workarea.admin.shared.bulk_actions.import'), new_data_file_import_path(model_type: Workarea::Content::BlogComment, return_to: form_path), class: 'workflow-bar__button'
+              .grid__cell= link_to t('workarea.admin.shared.bulk_actions.export'), new_data_file_export_path(model_type: Workarea::Content::BlogComment, query_id: generic_admin_search_query_id(model_type: Workarea::Content::BlogComment, entry_id: @blog_comments&.blog_entry&.id), return_to: form_path), class: 'workflow-bar__button'
+
+    - else
+      %p= t('workarea.admin.content_blogs_comments.index.no_comments_found')

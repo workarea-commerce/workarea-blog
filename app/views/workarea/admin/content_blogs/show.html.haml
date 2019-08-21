@@ -1,0 +1,19 @@
+- @page_title = @blog.name
+
+.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--25
+        = render 'workarea/admin/releases/select'
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to_index_for(@blog)
+          %h1= @blog.name
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@blog)
+
+  .view__container
+    = render_cards_for(@blog)
+
+    .workflow-bar
+      = link_to t('workarea.admin.actions.delete'), content_blog_path(@blog), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.content_blogs.actions.delete_confirmation') }

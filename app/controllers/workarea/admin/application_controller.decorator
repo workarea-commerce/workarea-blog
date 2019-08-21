@@ -1,0 +1,5 @@
+module Workarea
+  decorate Admin::ApplicationController, with: :blog do
+    decorated { helper Admin::BlogsHelper }
+  end
+end

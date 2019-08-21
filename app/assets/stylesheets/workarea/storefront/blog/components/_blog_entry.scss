@@ -1,0 +1,91 @@
+/*------------------------------------*\
+    #BLOG-ENTRY
+\*------------------------------------*/
+
+.blog-entry {}
+
+    .blog-entry__label {
+        display: inline-block;
+        margin: 0 ($spacing-unit / 2) 0 0;
+    }
+
+    .blog-entry__title {}
+
+    .blog-entry__author {
+        display: inline-block;
+        margin: 0 $spacing-unit 0 0;
+    }
+
+    .blog-entry__datetime {
+        display: inline-block;
+    }
+
+    .blog-entry__comment-count {
+        display: inline-block;
+        margin: 0 0 0 $spacing-unit;
+    }
+
+    .blog-entry__tags {
+        margin-bottom: $vertical-margin;
+    }
+
+        .blog-entry__tags-list {
+            @extend %inline-list;
+            display: inline-block;
+        }
+
+            .blog-entry__tags-list-item {
+                & + & {
+                    margin: 0 0 0 ($spacing-unit / 2);
+                }
+            }
+
+    .blog-entry__body {
+        margin-bottom: $vertical-margin;
+    }
+
+    /**
+     * Comments
+     */
+
+    .blog-entry__comments {}
+
+        .blog-entry__section {}
+
+        .blog-entry__comments-header {
+            @extend %clearfix;
+        }
+
+            .blog-entry__comments-heading {
+                @include respond-to($medium-breakpoint) {
+                    float: left;
+                }
+            }
+
+            .blog-entry__write-comment-link {
+                @include respond-to($medium-breakpoint) {
+                    float: right;
+                }
+            }
+
+        .blog-entry__comment-group {
+            @extend %list-reset;
+        }
+
+            .blog-entry__comment {
+                margin-bottom: $vertical-margin;
+            }
+
+                .blog-entry__comment-item {
+                    margin: 0 0 ($spacing-unit / 2);
+                }
+
+                .blog-entry__comment-item--author {}
+
+                .blog-entry__comment-item--datetime {}
+
+                .blog-entry__comment-item--body {
+                    margin-bottom: ($spacing-unit * 2);
+                }
+
+        .blog-entry__comments-form {}

@@ -1,0 +1,20 @@
+- @page_title = @blog_entry.name
+- @selected_navigation_nodes = ['Marketing', 'Blogs']
+
+.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--25
+        = render 'workarea/admin/releases/select'
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to "↑ #{t('workarea.admin.content_blog_entries.show.index_link', name: @blog_entry.blog.name)}", content_blog_blog_entries_path(content_blog_id: @blog_entry.blog.slug), class: 'view__dashboard-button'
+          %h1= @blog_entry.name
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@blog_entry)
+
+  .view__container
+    = render_cards_for(@blog_entry)
+
+    .workflow-bar
+      = link_to t('workarea.admin.actions.delete'), content_blog_entry_path(@blog_entry), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.actions.delete_confirmation') }

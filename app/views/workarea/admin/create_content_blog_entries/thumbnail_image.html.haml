@@ -1,0 +1,48 @@
+- @page_title = t('workarea.admin.create_content_blog_entries.thumbnail_image.page_title', name: @blog_entry.name)
+
+.view
+  .view__header
+    .view__heading
+      %h1= t('workarea.admin.create_content_blog_entries.thumbnail_image.title', name: @blog_entry.name)
+
+  .view__container.view__container--narrow
+    - @blog_entry.errors.full_messages.each do |message|
+      = render_message 'error', message
+
+    = form_tag save_thumbnail_image_create_content_blog_entry_path(@blog_entry), method: 'post' do
+      = hidden_field_tag :id, @blog_entry.slug unless @blog_entry.new_record?
+      = hidden_field_tag 'blog_entry[active]', false
+
+      .property
+        = label_tag 'blog_entry[thumbnail_image]', class: 'property__name' do
+          %span.property__text Choose Image File
+
+        .asset-picker-field{ data: { asset_picker_field: '' } }
+          .asset-picker-field__cell
+            = hidden_field_tag "blog_entry[thumbnail_image]", @blog_entry[:thumbnail_image], class: 'text-box text-box--i18n'
+
+            %span{ data: { asset_name: true } }
+              - asset = Workarea::Content::Asset.find_or_initialize_by(id: @blog_entry[:thumbnail_image])
+              = asset.name.presence || t('workarea.admin.content_blocks.asset.name_missing')
+
+          .asset-picker-field__cell= link_to t('workarea.admin.content_blocks.asset.select_an_asset'), insert_content_assets_path(file_type: 'image'), class: 'text-button', data: { asset_picker_field_open: '', turbolinks: false }
+          - if asset.name.present?
+            .asset-picker-field__cell= button_tag t('workarea.admin.content_blocks.asset.clear_asset'), type: 'button', value: 'clear_asset', id: 'clear_asset', class: 'text-button text-button--destroy', data: { asset_picker_field_clear: '' }
+
+      .workflow-bar
+        .grid.grid--middle
+          .grid__cell.grid__cell--20
+            = link_to t('workarea.admin.form.cancel'), content_blog_entry_path(@blog_entry), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_content_blog_entries.workflow.cancel_message') }
+
+          .grid__cell.grid__cell--60
+            %ol.workflow-bar__steps
+              %li
+                %li 1) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.setup'), create_content_blog_entry_path(@blog_entry)}
+                %strong 2) #{t('workarea.admin.create_content_blog_entries.workflow.steps.thumbnail_image')}
+                %li 3) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.content'), content_create_content_blog_entry_path(@blog_entry)}
+                %li 4) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.featured_products'), featured_products_create_content_blog_entry_path(@blog_entry)}
+                %li 5) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.publish'), publish_create_content_blog_entry_path(@blog_entry)}
+
+          .grid__cell.grid__cell--20
+            .grid.grid--auto.grid--right.grid--middle
+              .grid__cell= button_tag t('workarea.admin.create_content_blog_entries.thumbnail_image.button'), value: 'save_setup', class: 'workflow-bar__button workflow-bar__button--create'

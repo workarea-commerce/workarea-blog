@@ -1,0 +1,10 @@
+module Workarea
+  decorate SetNavigable, with: :blog do
+    decorated do
+      self.slug_map = slug_map.merge({
+          'blog' => Content::Blog,
+          'blog_entry' => Content::BlogEntry
+      })
+    end
+  end
+end

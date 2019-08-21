@@ -1,0 +1,33 @@
+- @page_title = t('workarea.admin.content_blogs.new.page_title')
+
+.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--25
+        = render 'workarea/admin/releases/select'
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to t('workarea.admin.content_blogs.new.blogs'), content_blogs_path
+          %h1= t('workarea.admin.content_blogs.new.title')
+
+  - if @blog.errors.present?
+    = render 'workarea/admin/shared/errors', errors: @blog.errors
+
+  .view__container.view__container--narrow
+    = form_tag content_blogs_path, method: 'post', id: 'blog_form' do
+      .section
+        .property.property--required
+          = label_tag 'blog_name', nil, class: 'property__name' do
+            %span.property__text= t('workarea.admin.content_blogs.new.name')
+          = text_field_tag 'blog[name]', @blog.name, class: 'text-box text-box--i18n', required: true
+        .property
+          = label_tag 'blog_slug', nil, class: 'property__name' do
+            %span.property__text= t('workarea.admin.content_blogs.new.page_url')
+          %span= storefront.blog_url('')
+          = text_field_tag 'blog[slug]', @blog[:slug], class: 'text-box text-box--medium', placeholder: @blog[:slug] || 'your-slug-here'
+          %span.property__note= t('workarea.admin.content_blogs.new.page_url_note')
+
+      .workflow-bar
+        .grid.grid--auto.grid--right.grid--middle
+          .grid__cell= render 'workarea/admin/shared/publishing_select'
+          .grid__cell= button_tag t('workarea.admin.content_blogs.new.create_blog'), value: 'save_blog', class: 'workflow-bar__button workflow-bar__button--create'

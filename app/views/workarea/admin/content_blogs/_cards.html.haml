@@ -1,0 +1,58 @@
+.grid.grid--auto.grid--flush.grid--center
+  .grid__cell
+    .card{ class: card_classes(:attributes, local_assigns[:active]) }
+      = link_to edit_content_blog_path(model), class: 'card__header' do
+        %span.card__header-text= t('workarea.admin.content_blogs.cards.attributes.title')
+        = inline_svg 'workarea/admin/icons/attributes.svg', class: 'card__icon'
+
+      - if local_assigns[:active].blank?
+        .card__body
+          %ul.list-reset
+            %li
+              %strong= t('workarea.admin.content_blogs.cards.attributes.entries')
+              = model.entries.count
+            %li
+              %strong= t('workarea.admin.content_blogs.cards.attributes.navigation')
+              = model.navigation.to_s.titleize
+            %li
+              %strong= t('workarea.admin.content_blogs.cards.attributes.modified')
+              #{local_time_ago(model.updated_at)}
+            %li
+              %strong= t('workarea.admin.content_blogs.cards.attributes.created')
+              #{local_time_ago(model.created_at)}
+          = link_to edit_content_blog_path(model), class: 'card__button' do
+            %span.button.button--small=  t('workarea.admin.content_blogs.cards.attributes.button')
+
+  .grid__cell
+    .card{ class: card_classes(:blog_entries, local_assigns[:active]) }
+      = link_to content_blog_blog_entries_path(content_blog_id: model.slug), class: 'card__header' do
+        %span.card__header-text= t('workarea.admin.content_blogs.cards.blog_entries.title')
+        = inline_svg 'workarea/admin/blog/icons/blog_entry.svg', class: 'card__icon'
+
+      - if local_assigns[:active].blank?
+        .card__body
+          - if model.entries.empty?
+            .card__empty-note
+              %p= t('workarea.admin.content_blogs.cards.blog_entries.empty')
+            = link_to create_content_blog_entries_path(content_blog_id: model), class: 'card__button' do
+              %span.button.button--small= t('workarea.admin.content_blogs.cards.blog_entries.button_create')
+          - else
+            %ul.list-reset
+              - model.entries.take(10).each_with_index do |entry, i|
+                %li
+                  %p
+                    = entry.name
+                    %br
+                    = t('workarea.admin.content_blogs.cards.blog_entries.by', author: entry.author)
+
+          = link_to content_blog_blog_entries_path(content_blog_id: model.slug), class: 'card__button' do
+            %span.button.button--small= t('workarea.admin.content_blogs.cards.blog_entries.button')
+
+  .grid__cell
+    = render 'workarea/admin/content/card', content: model.content, active: local_assigns[:active]
+
+  .grid__cell
+    = render 'workarea/admin/timeline/card', timeline: model.timeline, active: local_assigns[:active]
+
+  .grid__cell
+    = render 'workarea/admin/comments/card', commentable: model, active: local_assigns[:active]

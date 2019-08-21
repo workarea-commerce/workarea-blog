@@ -1,0 +1,74 @@
+/*------------------------------------*\
+    #BLOG-ENTRY-SUMMARY
+\*------------------------------------*/
+
+$blog-entry-summary-thumbnail-small-width:  160px !default;
+
+
+.blog-entry-summary {}
+
+.blog-entry-summary--featured {}
+
+    .blog-entry-summary__title {}
+
+    .blog-entry-summary__banner-content {
+        margin-bottom: $vertical-margin;
+    }
+
+    .blog-entry-summary__entry-group {}
+
+        .blog-entry-summary__entry {
+            @extend %clearfix;
+            margin-bottom: $vertical-margin;
+        }
+
+            .blog-entry-summary__entry-thumbnail {
+                margin-bottom: $vertical-margin;
+                text-align: center;
+
+                @include respond-to($medium-breakpoint) {
+                    margin: $spacing-unit ($spacing-unit * 2) $spacing-unit 0;
+                    width: $blog-entry-summary-thumbnail-small-width;
+                    float: left;
+                }
+            }
+
+            .blog-entry-summary__entry-label {
+                display: inline-block;
+                margin: 0 ($spacing-unit / 2) 0 0;
+            }
+
+            .blog-entry-summary__entry-title {}
+
+            .blog-entry-summary__entry-author {
+                display: inline-block;
+                margin: 0 $spacing-unit 0 0;
+            }
+
+            .blog-entry-summary__entry-datetime {
+                display: inline-block;
+            }
+
+            .blog-entry-summary__entry-comment-count {
+                display: inline-block;
+                margin: 0 0 0 $spacing-unit;
+            }
+
+            .blog-entry-summary__entry-tags {
+                margin-bottom: $vertical-margin;
+            }
+
+                .blog-entry-summary__entry-tags-list {
+                    @extend %inline-list;
+                    display: inline-block;
+                }
+
+                    .blog-entry-summary__entry-tags-list-item {
+                        & + & {
+                            margin: 0 0 0 ($spacing-unit / 2);
+                        }
+                    }
+
+            .blog-entry-summary__content {
+                margin-bottom: $vertical-margin;
+            }

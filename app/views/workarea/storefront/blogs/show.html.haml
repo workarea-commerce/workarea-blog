@@ -1,0 +1,31 @@
+- @title = @blog.browser_title
+- @breadcrumbs = @blog.breadcrumbs
+
+- add_css(@blog.css)
+- add_javascript(@blog.javascript)
+
+- content_for :head do
+  %link{ href: blog_path(@blog), rel: 'canonical' }
+  %link{ href: blog_path(@blog, format: 'atom'), rel: 'alternate', type: 'application/atom-xml', title: 'Atom' }
+  %meta{ property: 'global-id', content: @blog.to_global_id.to_param }
+  - unless @blog.meta_description.blank?
+    %meta{ name: :description, content: @blog.meta_description }
+
+- content_for :page_aside do
+  = render 'workarea/storefront/blogs/blog_navigation', blog: @blog
+
+.blog-entry-summary.view{ itemscope: true, itemtype: 'http://schema.org/Blog', itemprop: '' }
+
+  %h1.blog-entry-summary__title{ itemprop: 'name' }= @blog.name
+
+  - if @blog.content_blocks_for(:header_content).present?
+    .blog-entry-summary__banner-content!= render_content_blocks(@blog.content_blocks_for(:header_content))
+
+  .pagination{ data: { pagination: pagination_data(@blog.entries) } }
+    .pagination-results
+      .blog-entry-summary__entry-group
+        - @blog.entries.each do |entry|
+          = render 'workarea/storefront/blog_entries/summary', entry: entry
+    - if show_pagination?(@blog.entries)
+      .pagination__button
+        = link_to t('workarea.storefront.pagination.next_page'), pagination_path_for(page: @blog.next_page), class: 'button', data: { pagination_button: '' }

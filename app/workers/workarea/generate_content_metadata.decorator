@@ -1,0 +1,15 @@
+module Workarea
+  decorate GenerateContentMetadata, with: :blog do
+    def perform(*)
+      super
+
+      Content::Blog.all.each_by(100) do |blog|
+        Metadata.update(Content.for(blog))
+
+        blog.entries.each_by(100) do |entry|
+          Metadata.update(Content.for(entry))
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,28 @@
+- @page_title = t('workarea.admin.create_content_blog_entries.content.page_title', name: @blog_entry.name)
+
+.view
+  .view__header
+    .view__heading
+      %h1= t('workarea.admin.create_content_blog_entries.content.title', name: @blog_entry.name)
+
+  .view__container
+
+    = render 'workarea/admin/content/edit', content: @content, workflow: true
+
+    .workflow-bar
+      .grid.grid--middle
+        .grid__cell.grid__cell--20
+          = link_to t('workarea.admin.form.cancel'), content_blog_entry_path(@blog_entry), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_content_blog_entries.workflow.cancel_message') }
+
+        .grid__cell.grid__cell--60
+          %ol.workflow-bar__steps
+            %li
+              %li 1) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.setup'), create_content_blog_entry_path(@blog_entry)}
+              %li 2) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.thumbnail_image'), thumbnail_image_create_content_blog_entry_path(@blog_entry)}
+              %strong 3) #{ t('workarea.admin.create_content_blog_entries.workflow.steps.content')}
+              %li 4) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.featured_products'), featured_products_create_content_blog_entry_path(@blog_entry)}
+              %li 5) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.publish'), publish_create_content_blog_entry_path(@blog_entry)}
+
+        .grid__cell.grid__cell--20
+          .grid.grid--auto.grid--right.grid--middle
+            .grid__cell= link_to t('workarea.admin.create_content_blog_entries.content.button'), featured_products_create_content_blog_entry_path(@blog_entry), class: 'workflow-bar__button'

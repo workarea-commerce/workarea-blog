@@ -1,0 +1,4 @@
+.grid.grid--auto.grid--right.grid--middle
+  - if @blog_entry.present?
+    .grid__cell= link_to t('workarea.admin.content_blog_entries.aux_navigation.view_blog'), content_blog_path(@blog_entry.blog)
+  .grid__cell= link_to t('workarea.admin.actions.view_on_storefront'), storefront.blog_entry_path(model)

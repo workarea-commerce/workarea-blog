@@ -1,0 +1,3 @@
+.property{ class: ('property--required' if field.required?) }
+  = label_tag dom_id(block, field.slug), field.name, class: 'property__name'
+  = select_tag "block[data][#{field.slug}]", options_for_blogs(block.data[field.slug]), id: dom_id(block, 'blog_search'), title: t('workarea.admin.content_blocks.blog_id.search_field_placeholder'), tabindex: '1', class: 'text-box', data: { remote_select: { source: content_blogs_path, options: { allowClear: true, placeholder: t('workarea.admin.content_blocks.blog_id.search_field_placeholder') } } }

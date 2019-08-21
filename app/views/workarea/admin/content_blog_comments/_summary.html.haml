@@ -1,0 +1,24 @@
+%li.comments__comment
+  .comments__comment-header
+    .comments__comment-avatar
+      = link_to user_path(model.author) do
+        = avatar_for model.author, additional_css_class: 'avatar'
+    %h3.comments__comment-author= link_to model.author.name, user_path(model.author)
+    %p.comments__comment-time
+      #{time_ago_in_words(model.created_at)} ago
+      - if model.pending
+        %span= t('workarea.admin.content_blogs_comments.summary.pending')
+    .comments__comment-actions
+      .grid.grid--auto
+        %p.grid__cell
+          = link_to edit_content_blog_user_comment_path(model), class: 'text-button' do
+            Edit
+            = inline_svg('workarea/admin/icons/edit.svg', class: 'text-button__icon')
+
+        = form_tag content_blog_user_comment_path(model), method: 'delete', class: 'grid__cell' do
+          %p
+            = button_tag t('workarea.admin.actions.delete'), value: 'delete_comment', class: 'text-button text-button--destroy' do
+              = t('workarea.admin.actions.delete')
+              = inline_svg('workarea/admin/icons/delete.svg', class: 'text-button__icon')
+  .comments__comment-body
+    %p= model.body

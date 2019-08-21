@@ -1,0 +1,20 @@
+.featured-entry-content-block
+  - if local_assigns[:entries].present?
+    - local_assigns[:entries].each do |entry|
+      - if entry.active
+        .featured-entry-content-block__entry
+          .featured-entry-content-block__banner
+            - if entry.thumbnail_image.present?
+              = link_to image_tag(entry.thumbnail_image_url, alt: 'Blog entry featured image', class: 'featured-entry-content-block__image'), blog_entry_path(entry)
+          .featured-entry-content-block__content
+            - if entry.blog.present?
+              = link_to entry.blog.name, blog_path(entry.blog), class: 'featured-entry-content-block__category-tag'
+            - if entry.name.present?
+              %h3.featured-entry-content-block__heading
+                = link_to entry.name.titleize, blog_entry_path(entry)
+            - if entry.author.present?
+              .featured-entry-content-block__byline= t('workarea.storefront.blogs.byline', author: entry.author)
+            - if entry.summary.present?
+              .featured-entry-content-block__body
+                %p= truncate(entry.summary, length: 150, separator: ' ')
+            = link_to t('workarea.storefront.blogs.read_more'), blog_entry_path(entry), class: 'featured-entry-content-block__read-more text-button text-button--large text-button--caret'

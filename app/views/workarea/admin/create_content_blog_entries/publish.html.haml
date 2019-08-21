@@ -1,0 +1,51 @@
+- @page_title = t('workarea.admin.create_content_blog_entries.publish.page_title', name: @blog_entry.name)
+
+.view
+  .view__header
+    .view__heading
+      %h1= t('workarea.admin.create_content_blog_entries.publish.title', name: @blog_entry.name)
+
+  .view__container
+    = form_tag save_publish_create_content_blog_entry_path(@blog_entry), method: 'post' do
+      .section
+        .grid.grid--center
+          .grid__cell.grid__cell--40-at-medium
+            .publish-create-release{ data: { publish_create_release: '' } }
+              .property
+                = radio_button_tag 'activate', 'now', current_release.blank?, title: 'Active'
+                = label_tag 'activate_now', 'Now', class: 'heading--4'
+
+              - release_options.each do |release|
+                .property
+                  = radio_button_tag 'activate', release.id, release == current_release, title: 'Active'
+                  = label_tag "activate_#{release.id}", "With #{release.name}", class: 'heading--4'
+
+              .property
+                = radio_button_tag 'activate', 'new_release', params[:activate] == 'new_release', title: 'Active'
+                = label_tag 'activate_new_release', 'With a new release:', class: 'heading--4'
+
+              .publish-create-release__fields.hidden
+                .property
+                  = label_tag 'release[name]', 'Release name', class: 'property__name'
+                  = text_field_tag 'release[name]', nil, class: 'text-box text-box--wide', placeholder: "Mother's Day #{Time.now.year}"
+                .property
+                  = label_tag 'release[publish_at]', 'When does it publish?', class: 'property__name'
+                  = hidden_field_tag 'release[publish_at]', nil, placeholder: 'When does it publish?', data: { datetimepicker_field: { inline: true } }
+
+      .workflow-bar
+        .grid.grid--middle
+          .grid__cell.grid__cell--20
+            = link_to t('workarea.admin.form.cancel'), content_blog_entry_path(@blog_entry), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.create_content_blog_entries.workflow.cancel_message') }
+
+          .grid__cell.grid__cell--60
+            %ol.workflow-bar__steps
+              %li
+                %li 1) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.setup'), create_content_blog_entry_path(@blog_entry)}
+                %li 2) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.thumbnail_image'), thumbnail_image_create_content_blog_entry_path(@blog_entry)}
+                %li 3) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.content'), content_create_content_blog_entry_path(@blog_entry)}
+                %li 4) #{link_to t('workarea.admin.create_content_blog_entries.workflow.steps.featured_products'), featured_products_create_content_blog_entry_path(@blog_entry)}
+                %strong 5) #{t('workarea.admin.create_content_blog_entries.workflow.steps.publish')}
+
+          .grid__cell.grid__cell--20
+            .grid.grid--auto.grid--right.grid--middle
+              .grid__cell= button_tag t('workarea.admin.create_content_blog_entries.publish.button'), class: 'workflow-bar__button'

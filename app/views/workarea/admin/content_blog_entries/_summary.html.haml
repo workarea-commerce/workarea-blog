@@ -1,0 +1,10 @@
+= link_to content_blog_entry_path(model), class: 'summary' do
+  %span.summary__type= t('workarea.admin.content_blog_entries.summary.blog_entry')
+  %span.summary__name= model.name
+  .summary__info-container
+    - if model.written_at.present?
+      %span.summary__info #{local_time(model.written_at)}
+    - else
+      %span.summary__info #{local_time(model.updated_at)}
+
+    %span.summary__info= t('workarea.admin.content_blog_entries.summary.comments', count: model.comment_count)
