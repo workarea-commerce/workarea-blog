@@ -43,6 +43,46 @@ module Workarea
         assert(page.has_content?('blog comment'))
       end
 
+      def test_moderating_comments_from_index
+        pending = t('workarea.admin.content_blogs_comments.summary.pending')
+        blog_entry = blog.entries.first
+        bad_comment = create_blog_comment(
+          entry: blog_entry,
+          user_id: Workarea::User.first.id,
+          user_info: 'UC',
+          body: 'oh noes i said the bad word',
+          pending: true
+        )
+        good_comment = create_blog_comment(
+          entry: blog_entry,
+          user_id: Workarea::User.first.id,
+          user_info: 'UC',
+          body: 'test test test',
+          pending: true
+        )
+
+        visit admin.content_blog_user_comments_path
+
+        assert_text(good_comment.body)
+        assert_text(bad_comment.body)
+        assert_text(pending, count: 2)
+
+        within '.comments__comment:first-child' do
+          click_link t('workarea.admin.content_blogs_comments.index.approve')
+        end
+
+        assert_text(pending, count: 1)
+
+        within '.comments__comment:first-child' do
+          click_link t('workarea.admin.content_blogs_comments.index.deny')
+        end
+
+        refute_text(pending)
+
+        assert(good_comment.reload.approved)
+        refute(bad_comment.reload.approved)
+      end
+
       def test_deleting_a_comment
         blog_entry = blog.entries.first
         blog_entry.comments.create!(
@@ -56,7 +96,7 @@ module Workarea
         visit admin.content_blog_user_comments_path
 
         within '.comments__comment', match: :first do
-          click_button('Delete')
+          click_link t('workarea.admin.actions.delete')
         end
 
         assert(page.has_content?(t('workarea.admin.content_blogs_comments.flash_messages.destroyed')))

@@ -18,7 +18,10 @@
           = render_aux_navigation_for(@blog_comments.blog_entry)
 
   .view__container.view__container--narrow
-    - if @blog_comments.comments.any?
+    - if @blog_comments.comments.empty?
+      %p= t('workarea.admin.content_blogs_comments.index.no_comments_found')
+
+    - else
       - form_path = @blog_comments.blog_entry.present? ? content_blog_user_comments_path(content_blog_entry_id: @blog_comments.blog_entry) : content_blog_user_comments_path
       = form_tag form_path, method: 'get', id: 'blog_comments_sort_form' do
         = hidden_field_tag 'content_blog_entry_id', params[:content_blog_entry_id] if params[:content_blog_entry_id].present?
@@ -31,9 +34,10 @@
           %p.browsing-controls__count{ data: { browsing_controls_count: @blog_comments.comments.total_count } }
             = t('workarea.admin.content_blogs_comments.index.comments', count: @blog_comments.comments.total_count)
 
-      .comments__comment-group
-        - @blog_comments.comments.each do |blog_comment|
-          = render_summary_for(blog_comment)
+      .section
+        .comments__comment-group
+          - @blog_comments.comments.each do |blog_comment|
+            = render_summary_for(blog_comment)
 
       - if @blog_comments.comments.total_pages > 1
         = render 'workarea/admin/shared/pagination', collection: @blog_comments.comments
@@ -44,6 +48,3 @@
             .grid.grid--auto
               .grid__cell= link_to t('workarea.admin.shared.bulk_actions.import'), new_data_file_import_path(model_type: Workarea::Content::BlogComment, return_to: form_path), class: 'workflow-bar__button'
               .grid__cell= link_to t('workarea.admin.shared.bulk_actions.export'), new_data_file_export_path(model_type: Workarea::Content::BlogComment, query_id: generic_admin_search_query_id(model_type: Workarea::Content::BlogComment, entry_id: @blog_comments&.blog_entry&.id), return_to: form_path), class: 'workflow-bar__button'
-
-    - else
-      %p= t('workarea.admin.content_blogs_comments.index.no_comments_found')

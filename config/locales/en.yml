@@ -44,6 +44,8 @@ en:
           new_comment: New Comment
           comment_body: Comment Body
           create_comment: Create Comment
+          approve: Approve
+          deny: Deny
       content_blog_entries:
         fields:
           author: Author

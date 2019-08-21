@@ -1,0 +1,5 @@
+module Workarea
+  decorate Storefront::ApplicationController, with: :blog do
+    decorated { helper Storefront::BlogsHelper }
+  end
+end

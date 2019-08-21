@@ -1,17 +1,3 @@
-Workarea Blog 3.4.6 (2019-06-11)
---------------------------------------------------------------------------------
-
-*   Remove Release Selector When Editing Blog Comments
-
-    Since blog comments are not releasable, remove the current release
-    selector from the top of the page which assumes that you're previewing
-    content for a future release.
-
-    BLOG-184
-    Tom Scott
-
-
-
 Workarea Blog 3.4.5 (2019-05-14)
 --------------------------------------------------------------------------------
 

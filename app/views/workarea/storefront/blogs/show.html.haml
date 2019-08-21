@@ -14,9 +14,9 @@
 - content_for :page_aside do
   = render 'workarea/storefront/blogs/blog_navigation', blog: @blog
 
-.blog-entry-summary.view{ itemscope: true, itemtype: 'http://schema.org/Blog', itemprop: '' }
+.blog-entry-summary.view
 
-  %h1.blog-entry-summary__title{ itemprop: 'name' }= @blog.name
+  %h1.blog-entry-summary__title= @blog.name
 
   - if @blog.content_blocks_for(:header_content).present?
     .blog-entry-summary__banner-content!= render_content_blocks(@blog.content_blocks_for(:header_content))

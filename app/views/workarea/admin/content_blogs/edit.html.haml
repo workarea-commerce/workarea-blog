@@ -32,8 +32,9 @@
             %span.property__text= t('workarea.admin.content_blogs.edit.page_url')
 
           %span= storefront.blog_url('')
-          = text_field_tag 'blog[slug]', @blog.slug, class: 'text-box text-box--medium', placeholder: @blog.slug || 'your-slug-here'
+          = text_field_tag 'blog[slug]', @blog.slug, class: 'text-box text-box--medium', placeholder: @blog.slug || 'your-slug-here', disabled: current_release.present?
           %span.property__note= t('workarea.admin.content_blogs.edit.page_url_note')
+          = render 'workarea/admin/shared/release_slug_tooltip'
 
         .grid
           .grid__cell.grid__cell--50.grid__cell--25-at-medium

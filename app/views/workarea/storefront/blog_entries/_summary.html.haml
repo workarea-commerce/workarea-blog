@@ -1,25 +1,26 @@
-%article.blog-entry-summary__entry{ class: entry.featured ? 'blog-entry-summary__entry--featured' : '', itemprop: 'blogPost', itemscope: true, itemtype: 'http://schema.org/BlogPosting', data: { pagination_item: '' } }
-  %heading
-    %h2.blog-entry-summary__entry-title{ itemprop: 'mainEntityOfPage' }
-      %span{ itemprop: 'headline' }= link_to entry.name, blog_entry_path(entry), itemprop: 'url'
+= render_schema_org(blog_posting_schema(entry))
 
-  %p.blog-entry-summary__entry-author{ itemprop: 'author', itemscope: '', itemType: 'http://schema.org/Person' }
-    %span{ itemprop: 'name' }= entry.author
+%article.blog-entry-summary__entry{ class: entry.featured ? 'blog-entry-summary__entry--featured' : '', data: { pagination_item: '' } }
+  %heading
+    %h2.blog-entry-summary__entry-title
+      %span= link_to entry.name, blog_entry_path(entry)
+
+  %p.blog-entry-summary__entry-author
+    %span= entry.author
   %p.blog-entry-summary__entry-datetime
-    = local_time(entry.written_at, format: :long, itemprop: 'datePublished dateModified')
-  %p.blog-entry-summary__entry-comment-count{ itemprop: 'commentCount' }= link_to t('workarea.storefront.blogs.comments', count: entry.comment_count), blog_entry_path(entry, anchor: 'blog-entry-comments')
-  = render 'workarea/storefront/blog_metadata/publisher'
+    = local_time(entry.written_at, format: :long)
+  %p.blog-entry-summary__entry-comment-count= link_to t('workarea.storefront.blogs.comments', count: entry.comment_count), blog_entry_path(entry, anchor: 'blog-entry-comments')
 
   - if entry.has_thumbnail_image?
-    %p.blog-entry-summary__entry-thumbnail= image_tag(entry.thumbnail_image_url, itemprop: 'image' )
+    %p.blog-entry-summary__entry-thumbnail= image_tag(entry.thumbnail_image_url)
 
   - if entry.tags.present?
     .blog-entry-summary__entry-tags
       %p.blog-entry-summary__entry-label= t('workarea.storefront.blogs.tags')
-      %ul.blog-entry-summary__entry-tags-list{ itemprop: 'keywords' }
+      %ul.blog-entry-summary__entry-tags-list
         - entry.tags.each do |tag|
           %li.blog-entry-summary__entry-tags-list-item= link_to tag, blog_tagged_path(entry.blog, tag)
 
-  .blog-entry-summary__content{ itemprop: 'description' }
+  .blog-entry-summary__content
     = entry.summary
     = link_to t('workarea.storefront.blogs.read_more'), blog_entry_path(entry)

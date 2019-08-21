@@ -41,7 +41,7 @@
       - if local_assigns[:active].blank?
         .card__body
           - if model.thumbnail_image.present?
-            = image_tag(model.thumbnail_image_url, itemprop: 'image' )
+            = image_tag(model.thumbnail_image_url)
             = link_to thumbnail_image_content_blog_entry_path(model), class: 'card__button' do
               %span.button.button--small= t('workarea.admin.content_blog_entries.cards.thumbnail_image.button_edit')
           - else

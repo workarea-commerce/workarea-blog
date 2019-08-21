@@ -7,18 +7,30 @@
     %p.comments__comment-time
       #{time_ago_in_words(model.created_at)} ago
       - if model.pending
-        %span= t('workarea.admin.content_blogs_comments.summary.pending')
+        = t('workarea.admin.content_blogs_comments.summary.pending')
     .comments__comment-actions
       .grid.grid--auto
-        %p.grid__cell
+        .grid__cell
           = link_to edit_content_blog_user_comment_path(model), class: 'text-button' do
-            Edit
-            = inline_svg('workarea/admin/icons/edit.svg', class: 'text-button__icon')
+            %span.grid.grid--auto.grid--middle
+              %span.grid__cell= t('workarea.admin.actions.edit')
+              %span.grid__cell= inline_svg('workarea/admin/icons/edit.svg', class: 'text-button__icon')
+        .grid__cell
+          = link_to content_blog_user_comment_path(model), class: 'text-button text-button--destroy', remote: true, data: { method: 'delete' } do
+            %span.grid.grid--auto.grid--middle
+              %span.grid__cell= t('workarea.admin.actions.delete')
+              %span.grid__cell= inline_svg('workarea/admin/icons/delete.svg', class: 'text-button__icon')
+        - if model.pending?
+          .grid__cell
+            = link_to content_blog_user_comment_path(model), class: 'text-button text-button--create', remote: true, data: { method: 'put', params: { 'blog_comment[approved]' => true } } do
+              %span.grid.grid--auto.grid--middle
+                %span.grid__cell= t('workarea.admin.content_blogs_comments.index.approve')
+                %span.grid__cell= inline_svg('workarea/admin/icons/recommendations.svg', class: 'text-button__icon')
+          .grid__cell
+            = link_to content_blog_user_comment_path(model), class: 'text-button text-button--destroy', remote: true, data: { method: 'put', params: { 'blog_comment[approved]' => false } } do
+              %span.grid.grid--auto.grid--middle
+                %span.grid__cell= t('workarea.admin.content_blogs_comments.index.deny')
+                %span.grid__cell= inline_svg('workarea/admin/icons/close.svg', class: 'text-button__icon')
 
-        = form_tag content_blog_user_comment_path(model), method: 'delete', class: 'grid__cell' do
-          %p
-            = button_tag t('workarea.admin.actions.delete'), value: 'delete_comment', class: 'text-button text-button--destroy' do
-              = t('workarea.admin.actions.delete')
-              = inline_svg('workarea/admin/icons/delete.svg', class: 'text-button__icon')
   .comments__comment-body
     %p= model.body

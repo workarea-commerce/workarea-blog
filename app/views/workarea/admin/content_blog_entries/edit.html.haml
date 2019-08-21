@@ -38,7 +38,8 @@
         .property
           = label_tag 'blog_entry[slug]', t('workarea.admin.content_blog_entries.edit.slug_label'), class: 'property__name'
           %span= storefront.blog_entry_url('')
-          = text_field_tag 'blog_entry[slug]', @blog_entry.slug, class: 'text-box text-box--medium', placeholder: @blog_entry.slug || 'your-slug-here'
+          = text_field_tag 'blog_entry[slug]', @blog_entry.slug, class: 'text-box text-box--medium', placeholder: @blog_entry.slug || 'your-slug-here', disabled: current_release.present?
+          = render 'workarea/admin/shared/release_slug_tooltip'
 
         .property
           = label_tag 'blog_entry[author]', nil, class: 'property__name' do
