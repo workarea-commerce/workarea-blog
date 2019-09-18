@@ -12,3 +12,4 @@ test/dummy/tmp/
 test/dummy/public/
 node_modules
 test/reports
+.rubocop-http*
