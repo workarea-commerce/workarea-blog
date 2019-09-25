@@ -143,6 +143,29 @@ module Workarea
             refute newly_published.empty?
           end
         end
+
+        def test_total
+          release = create_release(publish_at: 1.hour.from_now, published_at: nil)
+          26.times do
+            @blog.entries.create!(name: 'Test', author: 'BC', active: true)
+            @blog.entries.create!(name: 'Unpublished', author: 'BC', active: false)
+          end
+          release.as_current do
+            @blog.entries.where(name: 'Unpublished').each do |entry|
+              entry.update!(active: true)
+            end
+          end
+
+          view_model = Workarea::Storefront::BlogViewModel.new(@blog)
+
+          assert_equal(26, view_model.total)
+
+          release.as_current do
+            view_model = Workarea::Storefront::BlogViewModel.new(@blog.reload)
+
+            assert_equal(52, view_model.total)
+          end
+        end
       end
     end
   end
