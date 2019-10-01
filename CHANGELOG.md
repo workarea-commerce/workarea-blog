@@ -1,3 +1,16 @@
+Workarea Blog 3.4.8 (2019-10-01)
+--------------------------------------------------------------------------------
+
+*   Fix Blog Entries Total Count
+
+    The `#total` method on `Storefront::BlogEntryViewModel` was not
+    returning the actual total amount of entries if they exceeded 25, due to
+    Kaminari's default pagination. Use `scoped_entries.total_count` here to
+    avoid the problem.
+    Tom Scott
+
+
+
 Workarea Blog 3.4.7 (2019-08-21)
 --------------------------------------------------------------------------------
 
