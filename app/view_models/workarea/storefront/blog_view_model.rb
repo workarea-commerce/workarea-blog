@@ -40,7 +40,7 @@ module Workarea
       end
 
       def total
-        @total ||= scoped_entries.count
+        @total ||= scoped_entries.total_count
       end
 
       def page
