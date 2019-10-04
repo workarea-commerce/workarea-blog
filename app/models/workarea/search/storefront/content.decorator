@@ -1,0 +1,12 @@
+module Workarea
+  if Plugin.installed?(:content_search)
+    decorate Search::Storefront::Content, with: :blog do
+      # Always use the summary
+      def text
+        return super unless model.contentable.try(:summary).present?
+
+        model.contentable.summary
+      end
+    end
+  end
+end

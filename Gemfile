@@ -5,3 +5,4 @@ gemspec
 
 gem 'listen'
 gem 'workarea'
+gem 'workarea-content_search'
