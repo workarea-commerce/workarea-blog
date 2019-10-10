@@ -31,7 +31,7 @@ module Workarea
 
           def find_asset(uri)
             name = uri.path.rpartition('.').first.split('/').join('-')
-            Content::Asset.find_by(name: name) rescue Content::Asset.placeholder
+            Content::Asset.find_by(name: name) rescue Content::Asset.image_placeholder
           end
 
           def make_internal_links_relative

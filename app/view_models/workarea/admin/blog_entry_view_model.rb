@@ -18,7 +18,7 @@ module Workarea
           hash[key] = begin
                         Content::Asset.find(id)
                       rescue StandardError
-                        Content::Asset.placeholder
+                        Content::Asset.image_placeholder
                       end
         end
 
