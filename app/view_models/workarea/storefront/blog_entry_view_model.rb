@@ -29,7 +29,7 @@ module Workarea
         @assets[id.to_s] = begin
                              Content::Asset.find(id)
                            rescue StandardError
-                             Content::Asset.placeholder
+                             Content::Asset.image_placeholder
                            end
       end
 
