@@ -1,3 +1,22 @@
+Workarea Blog 3.4.9 (2019-10-16)
+--------------------------------------------------------------------------------
+
+*   Fix Content Search Text for Blog Entries
+
+    Since workarea-commerce/workarea-content-search#1 seems to be on the
+    back burner for now, and regardless of this blogs will have to handle
+    their search summary text on their own anyway. Update
+    `Search::Storefront::Content` to use the blog entry summary if it
+    exists, falling back to whatever the content-search gem uses to generate
+    its text. At the moment, this involves extracting text from content
+    blocks that have more than 5 words in them, but this may change in the
+    next major.
+
+    (#6)
+    Tom Scott
+
+
+
 Workarea Blog 3.4.8 (2019-10-01)
 --------------------------------------------------------------------------------
 
