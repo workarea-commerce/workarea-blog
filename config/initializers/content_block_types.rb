@@ -1,4 +1,4 @@
-Workarea::Content.define_block_types do
+Workarea.define_content_block_types do
   block_type 'Blog Entry' do
     description 'Feature a blog entry as a content block'
     view_model 'Workarea::Storefront::ContentBlocks::BlogEntryContentBlockViewModel'
