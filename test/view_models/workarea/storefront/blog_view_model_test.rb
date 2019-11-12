@@ -133,15 +133,16 @@ module Workarea
           unpublished = view_model.entries.select { |entry| entry.name == 'Unpublished' }
 
           assert_equal(3, view_model.entries.count)
-          assert unpublished.empty?
+          assert(unpublished.empty?)
+          assert(release.publish!)
 
-          release.as_current do
-            view_model = Workarea::Storefront::BlogViewModel.new(@blog.reload)
-            newly_published = view_model.entries.select { |entry| entry.name == 'Unpublished' }
-
-            assert_equal(4, view_model.entries.count)
-            refute newly_published.empty?
+          view_model = Workarea::Storefront::BlogViewModel.new(@blog.reload)
+          newly_published = view_model.entries.select do |entry|
+            entry.name == 'Unpublished'
           end
+
+          assert_equal(4, view_model.entries.count)
+          refute(newly_published.empty?)
         end
 
         def test_total

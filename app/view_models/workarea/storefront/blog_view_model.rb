@@ -48,7 +48,7 @@ module Workarea
       end
 
       def updated_at
-        @updated_at ||= model.entries.active.newest.first.try(:updated_at)
+        @updated_at ||= model.entries.newest.select(&:active?).first.try(:updated_at)
       end
 
       private
@@ -58,7 +58,7 @@ module Workarea
       end
 
       def scoped_entries
-        return scoped_entries_from_database if current_release.published?
+        return scoped_entries_from_database.page unless Release.current.present?
 
         Kaminari.paginate_array(scoped_entries_filtered_by_current_release)
       end
@@ -68,7 +68,7 @@ module Workarea
       end
 
       def scoped_entries_from_database
-        scope = ordered_entries.active
+        scope = ordered_entries.where(active: true)
         scope = scope.tagged_with(options[:tag]) if options[:tag].present?
         scope
       end
