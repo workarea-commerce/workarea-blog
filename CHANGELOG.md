@@ -1,3 +1,38 @@
+Workarea Blog 3.5.0 (2019-11-26)
+--------------------------------------------------------------------------------
+
+*   Fix Deprecation Warnings When Querying Entries
+
+    Use the `.select(&:active?)` format instead of the `.active` scope on
+    blog entries so that segmentation and releases are respected. Also fix
+    content block types syntax and add some test coverage when pulling
+    entries directly from the DB.
+
+    BLOG-11
+    Tom Scott
+
+*   Replace usage of deprecated Content.define_block_types
+
+    Matt Duffy
+
+*   Replace usage of Content::Asset#placeholder with #image_placeholder
+
+    Workarea v3.5 removes the #placeholder method in favor of the more
+    specific #image_placeholder
+
+    BLOG-10
+    Matt Duffy
+
+*   Move blog_entries_on_index config to administrable fields (#1)
+
+    Matt Duffy
+
+*   Initial commit on master
+
+    Curt Howard
+
+
+
 Workarea Blog 3.4.5 (2019-05-14)
 --------------------------------------------------------------------------------
 
