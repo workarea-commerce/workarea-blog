@@ -7,6 +7,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: workarea-commerce/ci/bundler-audit@v1
+      env:
+        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
     - uses: workarea-commerce/ci/rubocop@v1
 
   admin_tests:
@@ -15,8 +17,10 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
+        ruby-version: 2.4.x
     - uses: workarea-commerce/ci/test@v1
+      env:
+        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
       with:
         command: bin/rails app:workarea:test:admin
 
@@ -26,8 +30,10 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
+        ruby-version: 2.4.x
     - uses: workarea-commerce/ci/test@v1
+      env:
+        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
       with:
         command: bin/rails app:workarea:test:core
 
@@ -37,8 +43,10 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
+        ruby-version: 2.4.x
     - uses: workarea-commerce/ci/test@v1
+      env:
+        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
       with:
         command: bin/rails app:workarea:test:storefront
 
@@ -48,7 +56,9 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
+        ruby-version: 2.4.x
     - uses: workarea-commerce/ci/test@v1
+      env:
+        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
       with:
         command: bin/rails app:workarea:test:plugins
