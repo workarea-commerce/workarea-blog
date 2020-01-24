@@ -1,14 +1,13 @@
 name: CI
 on: [push]
-
+env:
+  BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
 jobs:
   static_analysis:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - uses: workarea-commerce/ci/bundler-audit@v1
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
     - uses: workarea-commerce/ci/rubocop@v1
 
   admin_tests:
@@ -19,8 +18,6 @@ jobs:
       with:
         ruby-version: 2.4.x
     - uses: workarea-commerce/ci/test@v1
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
       with:
         command: bin/rails app:workarea:test:admin
 
@@ -32,8 +29,6 @@ jobs:
       with:
         ruby-version: 2.4.x
     - uses: workarea-commerce/ci/test@v1
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
       with:
         command: bin/rails app:workarea:test:core
 
@@ -45,8 +40,6 @@ jobs:
       with:
         ruby-version: 2.4.x
     - uses: workarea-commerce/ci/test@v1
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
       with:
         command: bin/rails app:workarea:test:storefront
 
@@ -58,7 +51,5 @@ jobs:
       with:
         ruby-version: 2.4.x
     - uses: workarea-commerce/ci/test@v1
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
       with:
         command: bin/rails app:workarea:test:plugins
