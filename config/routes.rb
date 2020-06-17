@@ -38,12 +38,14 @@ Workarea::Admin::Engine.routes.draw do
 end
 
 Workarea::Storefront::Engine.routes.draw do
-  get 'blogs/:id/tagged/:tag', to: 'blogs#show', as: :blog_tagged
+  scope '(:locale)', constraints: Workarea::I18n.routes_constraint do
+    get 'blogs/:id/tagged/:tag', to: 'blogs#show', as: :blog_tagged
 
-  resources :blogs, only: %i[index show]
+    resources :blogs, only: %i[index show]
 
-  resources :blog_entries, only: :show do
-    get 'comments', to: 'blog_comments#index', as: :comments
-    post 'comment', to: 'blog_entries#add_comment'
+    resources :blog_entries, only: :show do
+      get 'comments', to: 'blog_comments#index', as: :comments
+      post 'comment', to: 'blog_entries#add_comment'
+    end
   end
 end
