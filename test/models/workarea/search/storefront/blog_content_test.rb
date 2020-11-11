@@ -20,13 +20,13 @@ module Workarea
 
           def test_use_summary_for_text_when_available
             @entry.update!(summary: 'foo bar baz')
-            indexed = Content.new(@content)
+            indexed = Content.new(@content.reload)
 
             assert_equal('foo bar baz', indexed.text)
           end
 
           def test_fall_back_to_default_block_text_extraction
-            indexed = Content.new(@content)
+            indexed = Content.new(@content.reload)
 
             assert_equal('lorem ipsum dolor sit amet', indexed.text)
           end
