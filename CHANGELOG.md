@@ -1,3 +1,21 @@
+Workarea Blog 3.5.2 (2020-11-12)
+--------------------------------------------------------------------------------
+
+*   Improve test related to content search
+
+    If another plugin decorates in a way to cause a `Content` to load its `Contentable` during creation/update (e.g. in a callback), this test will fail because the `Content` doesn't reload its `Contentable`.
+
+    This was noticied when combined with the site builder plugin.
+
+    Ben Crouse
+
+*   Fix wrong mismatched path/constant
+
+
+    Ben Crouse
+
+
+
 Workarea Blog 3.5.1 (2020-06-17)
 --------------------------------------------------------------------------------
 
