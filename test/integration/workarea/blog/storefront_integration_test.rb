@@ -61,7 +61,7 @@ module Workarea
         login_user
         entry = @blog.entries.first
 
-        @user.update_attributes(first_name: nil, last_name: nil)
+        @user.update(first_name: nil, last_name: nil)
 
         post storefront.blog_entry_comment_path(entry), params: {
           body: 'test comment',
@@ -77,7 +77,7 @@ module Workarea
       def test_raises_invalid_display_unless_the_entry_is_active
         entry = @blog.entries.first
 
-        entry.update_attributes!(active: false)
+        entry.update!(active: false)
         assert_raises(InvalidDisplay) { get storefront.blog_entry_path(entry) }
       end
 

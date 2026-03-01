@@ -73,7 +73,7 @@ module Workarea
 
         assert(entry.reload.active?)
 
-        entry.update_attributes(active: false)
+        entry.update(active: false)
 
         post admin.save_publish_create_content_blog_entry_path(entry),
              params: { activate: 'new_release', release: { name: '' } }
@@ -93,7 +93,7 @@ module Workarea
         release.as_current { assert(entry.reload.active?) }
 
         release = create_release
-        entry.update_attributes!(active: false)
+        entry.update!(active: false)
 
         post admin.save_publish_create_content_blog_entry_path(entry),
              params: { activate: release.id }

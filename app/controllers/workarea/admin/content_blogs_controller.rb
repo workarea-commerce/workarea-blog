@@ -23,7 +23,7 @@ module Workarea
       end
 
       def update
-        if @blog.update_attributes(blog_params)
+        if @blog.update(blog_params)
           flash[:success] = 'Blog has been updated'
           redirect_to edit_content_blog_path(@blog)
         else
