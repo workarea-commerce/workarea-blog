@@ -25,7 +25,7 @@ module Workarea
       end
 
       def save_thumbnail_image
-        @blog_entry.update_attributes(params[:blog_entry])
+        @blog_entry.update(params[:blog_entry])
         redirect_to content_create_content_blog_entry_path(@blog_entry)
       end
 

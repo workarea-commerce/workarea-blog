@@ -20,7 +20,7 @@ module Workarea
             flash[:error] = 'First and last name are required'
             render(:show) && return
           else
-            current_user.update_attributes(params.permit(:first_name, :last_name))
+            current_user.update(params.permit(:first_name, :last_name))
           end
         end
 

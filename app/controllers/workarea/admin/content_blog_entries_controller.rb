@@ -26,7 +26,7 @@ module Workarea
       end
 
       def update
-        if @blog_entry.update_attributes(params[:blog_entry])
+        if @blog_entry.update(params[:blog_entry])
           flash[:success] = t('workarea.admin.content_blog_entries.flash_messages.updated')
           redirect_to edit_content_blog_entry_path(@blog_entry)
         else
@@ -40,7 +40,7 @@ module Workarea
       end
 
       def update_thumbnail_image
-        if @blog_entry.update_attributes(params[:blog_entry])
+        if @blog_entry.update(params[:blog_entry])
           flash[:success] = t('workarea.admin.content_blog_entries.flash_messages.updated')
           redirect_to thumbnail_image_content_blog_entry_path(@blog_entry)
         else

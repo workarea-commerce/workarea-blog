@@ -12,7 +12,7 @@ module Workarea
       def edit; end
 
       def update
-        if @blog_comment.update_attributes(blog_comment_params)
+        if @blog_comment.update(blog_comment_params)
           flash[:success] = 'Blog entry comment has been updated'
           redirect_to content_blog_user_comments_path(
             content_blog_entry_id: params[:content_blog_entry_id]

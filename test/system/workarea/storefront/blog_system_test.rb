@@ -172,7 +172,7 @@ module Workarea
         assert_equal(storefront.blog_entry_path(blog.entries.first), current_path)
         assert(page.has_content?('Success'))
 
-        Workarea::Content::BlogComment.first.update_attributes(approved: true)
+        Workarea::Content::BlogComment.first.update(approved: true)
 
         clear_driver_cache if respond_to?(:clear_driver_cache)
         visit storefront.blog_entry_path(blog.entries.first)
@@ -190,7 +190,7 @@ module Workarea
         Workarea::Content::BlogComment
           .where(body: 'test comment 2')
           .first
-          .update_attributes!(approved: true)
+          .update!(approved: true)
 
         clear_driver_cache if respond_to?(:clear_driver_cache)
         visit storefront.blog_entry_path(blog.entries.first)
