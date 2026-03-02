@@ -5,4 +5,4 @@ gemspec
 
 gem 'listen'
 
-gem 'workarea', github: 'workarea-commerce/workarea', branch: 'next', branch: 'v3.5-stable'
+gem 'workarea', github: 'workarea-commerce/workarea', branch: 'next'
